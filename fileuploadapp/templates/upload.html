@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>File Upload</title>
+	<style>
+		body {
+			font-family: Arial, Helvetica, sans-serif;
+		}
+		h2 {
+			margin-top: 30px;
+			margin-bottom: 20px;
+		}
+		form {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin-top: 50px;
+		}
+		input[type="file"] {
+			margin-bottom: 20px;
+		}
+		button[type="submit"] {
+			padding: 10px 20px;
+			background-color: #4CAF50;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+		p {
+			margin-top: 50px;
+			font-size: 18px;
+		}
+	</style>
+</head>
+<body>
+	<h2>Upload a File</h2>
+	<form method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		<input type="file" name="myfile">
+		<button type="submit">Upload</button>
+	</form>
+	{% if uploaded_file_url %}
+	<p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+	{% endif %}
+	{% if data %}
+		<h2>Result:</h2>
+		<ul>
+			{% for item in data %}
+				<li>{{ item }}</li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		<p>No data to display.</p>
+	{% endif %}
+</body>
+</html>
