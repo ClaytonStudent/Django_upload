@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-4_108soqe%%3#%@zegs3nyv$40ime#@c()v)fvt50$71yx6_-_
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
+CSRF_TRUSTED_ORIGINS = ['https://django-ecommerce.azurewebsites.net','https://*.127.0.0.1']
 
 # Application definition
 
