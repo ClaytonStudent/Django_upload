@@ -1,0 +1,41 @@
+#AIzaSyAhajAhpHEJX5hGz_y6U3oKjoOZQEJi37g
+#Update For Python 3+
+#Also includes example parsing out the postal code
+import urllib.request, urllib.parse 
+import json, time
+key = r'AIzaSyAhajAhpHEJX5hGz_y6U3oKjoOZQEJi37g'
+
+def GoogGeoAPI(address,api="",delay=3):
+  base = r"https://maps.googleapis.com/maps/api/geocode/json?"
+  addP = "address=" + urllib.parse.quote_plus(address)
+  GeoUrl = base + addP + "&key=" + api
+  response = urllib.request.urlopen(GeoUrl)
+  jsonRaw = response.read()
+  jsonData = json.loads(jsonRaw)
+  if jsonData['status'] == 'OK':
+    resu = jsonData['results'][0]
+    post_code = -1
+    for i in resu['address_components']:
+      if i['types'][0] == 'postal_code':
+        post_code = i['long_name'] #not sure if everything always has a long name?
+    finList = [resu['formatted_address'],resu['geometry']['location']['lat'],resu['geometry']['location']['lng'],post_code]
+  else:
+    finList = [None,None,None,None]
+  time.sleep(delay) #in seconds
+  return finList
+  
+#test = r"VIA PRIOCCA 20, Torino, TO "
+#geoR = GoogGeoAPI(address=test,api=key,delay=0)
+#print(geoR)
+
+if __name__ == "__main__":
+   with open('address_ajian.txt', 'r+') as f:
+    lines = f.readlines()
+    for place in lines:
+      try:
+        geoR = GoogGeoAPI(address=place,api=key,delay=0)
+        print(geoR)
+        f.write(geoR[-1] + "\n")
+      except:
+        print("Not Found")
+        f.write("\n")
