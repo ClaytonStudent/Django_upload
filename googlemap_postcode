@@ -1,9 +1,9 @@
-#AIzaSyAhajAhpHEJX5hGz_y6U3oKjoOZQEJi37g
+#
 #Update For Python 3+
 #Also includes example parsing out the postal code
 import urllib.request, urllib.parse 
 import json, time
-key = r'AIzaSyAhajAhpHEJX5hGz_y6U3oKjoOZQEJi37g'
+key = r''
 
 def GoogGeoAPI(address,api="",delay=3):
   base = r"https://maps.googleapis.com/maps/api/geocode/json?"
